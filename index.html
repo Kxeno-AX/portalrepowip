@@ -1,1 +1,982 @@
-<h1>Hello World Wide Web!</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Portal Repository · Cosmos</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', 'Roboto', system-ui, sans-serif;
+    }
+
+    :root {
+      --bg-deep: #0b0e14;
+      --bg-panel: #151e2a;
+      --bg-panel-light: #1e2a3a;
+      --accent-cyan: #4dd0e1;
+      --accent-gold: #f5b041;
+      --text-primary: #e3e9f2;
+      --text-secondary: #a0b3c9;
+      --border-dim: #2e3f54;
+      --shadow: 0 10px 25px rgba(0,0,0,0.5);
+      --radius: 14px;
+      --transition: all 0.2s ease;
+    }
+
+    body {
+      background: var(--bg-deep);
+      color: var(--text-primary);
+      line-height: 1.5;
+      padding: 1.5rem;
+      min-height: 100vh;
+      background-image: radial-gradient(circle at 20% 30%, #16202c 0%, #0b0e14 80%);
+    }
+
+    .app {
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    /* ---------- HEADER ---------- */
+    .top-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border-dim);
+      margin-bottom: 2rem;
+      gap: 1rem;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      font-size: 2rem;
+      color: var(--accent-cyan);
+      filter: drop-shadow(0 0 8px rgba(77, 208, 225, 0.4));
+    }
+
+    .logo-text h1 {
+      font-size: 1.7rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent-cyan);
+      line-height: 1.2;
+    }
+
+    .logo-text span {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .stats-badge {
+      background: rgba(77, 208, 225, 0.08);
+      border: 1px solid rgba(77, 208, 225, 0.3);
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ---------- PAGE TABS ---------- */
+    .page-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+      background: var(--bg-panel);
+      padding: 0.75rem 1rem;
+      border-radius: 60px;
+      border: 1px solid var(--border-dim);
+      box-shadow: var(--shadow);
+      width: fit-content;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .tab-btn.active {
+      background: var(--accent-cyan);
+      color: #0b0e14;
+      box-shadow: 0 0 15px rgba(77, 208, 225, 0.4);
+    }
+
+    /* ---------- PAGE SECTIONS ---------- */
+    .page-section {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .page-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- HOME ---------- */
+    .hero {
+      background: linear-gradient(145deg, #101a24, #0c131c);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      border: 1px solid var(--border-dim);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(77, 208, 225, 0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      font-weight: 400;
+      margin-bottom: 0.75rem;
+      color: #fff;
+    }
+
+    .hero p {
+      color: var(--text-secondary);
+      max-width: 700px;
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-sub {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .hero-sub i {
+      color: var(--accent-cyan);
+      margin-right: 0.4rem;
+    }
+
+    .quick-links-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .quick-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      padding: 1.5rem 1rem;
+      text-align: center;
+      transition: var(--transition);
+      cursor: pointer;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.3);
+    }
+
+    .quick-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.6);
+      background: var(--bg-panel-light);
+    }
+
+    .quick-card i {
+      font-size: 2rem;
+      color: var(--accent-cyan);
+      margin-bottom: 0.75rem;
+    }
+
+    .quick-card h3 {
+      font-weight: 500;
+      font-size: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .quick-card p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .hero h2 i {
+      color: var(--accent-cyan);
+      margin-right: 0.5rem;
+    }
+
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    @media (max-width: 750px) {
+      .grid-2col { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-dim);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .panel-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(0,0,0,0.2);
+    }
+
+    .panel-header h3 {
+      font-weight: 500;
+      font-size: 1.3rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .panel-header h3 i {
+      color: var(--accent-cyan);
+    }
+
+    .panel-header a {
+      color: var(--accent-cyan);
+      font-size: 0.85rem;
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .panel-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .address-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.8rem 0;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .address-item:last-child {
+      border-bottom: none;
+    }
+
+    .address-glyph {
+      background: #0f1a22;
+      border-radius: 8px;
+      padding: 0.3rem 0.8rem;
+      font-family: 'Courier New', monospace;
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--accent-cyan);
+      border: 1px solid var(--border-dim);
+      letter-spacing: 1px;
+      white-space: nowrap;
+    }
+
+    .address-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .address-meta .title {
+      font-weight: 500;
+      font-size: 0.95rem;
+    }
+
+    .address-meta .sub {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      display: flex;
+      gap: 0.8rem;
+      margin-top: 0.15rem;
+    }
+
+    .badge {
+      background: rgba(77, 208, 225, 0.15);
+      color: var(--accent-cyan);
+      border-radius: 30px;
+      padding: 0.15rem 0.7rem;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .featured-quote {
+      font-style: italic;
+      color: #ccdbe9;
+      border-left: 3px solid var(--accent-gold);
+      padding-left: 1.25rem;
+      margin: 1rem 0;
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .featured-signature {
+      font-size: 0.8rem;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-top: 0.5rem;
+    }
+
+    .archive-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 2rem;
+      background: var(--bg-panel-light);
+      padding: 1.25rem 1.5rem;
+      border-radius: var(--radius);
+      border: 1px solid var(--border-dim);
+    }
+
+    .archive-links a {
+      color: var(--text-secondary);
+      margin-right: 1.5rem;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    .archive-links a:hover {
+      color: var(--accent-cyan);
+    }
+
+    .merch-btn {
+      background: transparent;
+      border: 1px solid var(--accent-cyan);
+      color: var(--accent-cyan);
+      padding: 0.7rem 1.8rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: var(--transition);
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .merch-btn:hover {
+      background: var(--accent-cyan);
+      color: #0b0e14;
+      box-shadow: 0 0 20px rgba(77, 208, 225, 0.4);
+    }
+
+    /* ---------- NEWS ---------- */
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .news-card {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-dim);
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: var(--shadow);
+    }
+
+    .news-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-cyan);
+    }
+
+    .news-card-img {
+      height: 140px;
+      background: linear-gradient(135deg, #1a2a38, #0f1a24);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--accent-cyan);
+      border-bottom: 1px solid var(--border-dim);
+    }
+
+    .news-card-content {
+      padding: 1.5rem;
+    }
+
+    .news-card-content .date {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: var(--accent-cyan);
+      margin-bottom: 0.5rem;
+    }
+
+    .news-card-content h3 {
+      font-weight: 500;
+      margin-bottom: 0.75rem;
+      font-size: 1.25rem;
+    }
+
+    .news-card-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    /* ---------- ADDRESS ---------- */
+    .address-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .filter-btn {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      color: var(--text-secondary);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover,
+    .filter-btn.active {
+      background: var(--accent-cyan);
+      color: #0b0e14;
+      border-color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .address-table {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      border: 1px solid var(--border-dim);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .table-header {
+      display: grid;
+      grid-template-columns: 1.5fr 2fr 1fr 1fr;
+      padding: 1rem 1.5rem;
+      background: rgba(0,0,0,0.3);
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--text-secondary);
+      border-bottom: 1px solid var(--border-dim);
+      font-weight: 600;
+    }
+
+    .table-row {
+      display: grid;
+      grid-template-columns: 1.5fr 2fr 1fr 1fr;
+      padding: 1rem 1.5rem;
+      align-items: center;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: var(--transition);
+    }
+
+    .table-row:hover {
+      background: rgba(77, 208, 225, 0.03);
+    }
+
+    .table-row:last-child {
+      border-bottom: none;
+    }
+
+    .glyph-cell {
+      font-family: 'Courier New', monospace;
+      color: var(--accent-cyan);
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    .planet-cell {
+      font-weight: 500;
+    }
+
+    .platform-cell,
+    .mode-cell {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 700px) {
+      .table-header,
+      .table-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+      }
+      .table-header span:nth-child(3),
+      .table-header span:nth-child(4),
+      .table-row span:nth-child(3),
+      .table-row span:nth-child(4) {
+        display: none;
+      }
+    }
+
+    /* ---------- SEARCH ---------- */
+    .search-hero {
+      background: var(--bg-panel);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      border: 1px solid var(--border-dim);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .search-hero h2 {
+      font-weight: 400;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box-large {
+      display: flex;
+      max-width: 650px;
+      margin: 0 auto;
+      gap: 0.5rem;
+    }
+
+    .search-box-large input {
+      flex: 1;
+      background: #0e161f;
+      border: 1px solid var(--border-dim);
+      border-radius: 50px;
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      color: var(--text-primary);
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-box-large input::placeholder {
+      color: #5e7185;
+    }
+
+    .search-box-large input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(77, 208, 225, 0.2);
+    }
+
+    .search-box-large button {
+      background: var(--accent-cyan);
+      border: none;
+      border-radius: 50px;
+      padding: 0 2.5rem;
+      font-weight: 600;
+      font-size: 1rem;
+      color: #0b0e14;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .search-box-large button:hover {
+      background: #6ee2f0;
+      box-shadow: 0 0 25px rgba(77, 208, 225, 0.5);
+    }
+
+    .search-filters {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .search-filters span {
+      background: #0e161f;
+      border: 1px solid var(--border-dim);
+      padding: 0.5rem 1.2rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .search-filters span:hover {
+      border-color: var(--accent-cyan);
+      color: var(--accent-cyan);
+    }
+
+    /* ---------- UTILS ---------- */
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- ========== TOP BAR ========== -->
+    <header class="top-bar">
+      <div class="logo-area">
+        <div class="logo-icon"><i class="fas fa-portal"></i></div>
+        <div class="logo-text">
+          <h1>The Portal Repository</h1>
+          <span>Cosmos · No Man's Sky</span>
+        </div>
+      </div>
+      <div class="stats-badge">
+        <i class="fas fa-users"></i> 2,991 Registered Travellers
+      </div>
+    </header>
+
+    <!-- ========== PAGE TABS ========== -->
+    <div class="page-tabs">
+      <button class="tab-btn active" data-page="home"><i class="fas fa-home"></i> Home</button>
+      <button class="tab-btn" data-page="news"><i class="fas fa-newspaper"></i> News</button>
+      <button class="tab-btn" data-page="address"><i class="fas fa-map-pin"></i> Address</button>
+      <button class="tab-btn" data-page="search"><i class="fas fa-search"></i> Search</button>
+    </div>
+
+    <!-- ========== HOME PAGE ========== -->
+    <section id="home" class="page-section active">
+      <div class="hero">
+        <h2><i class="fas fa-galaxy"></i> The Portal Repository: Cosmos</h2>
+        <p>The Portal Repository is a catalog of player-submitted portal addresses in No Man’s Sky. Addresses are categorized by game platform, mode, galaxy and keywords.</p>
+        <p>Each galaxy contains a network of portals (similar to Stargates) that allow instantaneous travel between worlds within a galaxy.</p>
+        <p>Portals can be activated by dialing a twelve-digit sequence (out of the sixteen total glyphs). You can learn more about portals on the No Man’s Sky Gamepedia wiki page.</p>
+        <div class="hero-sub">
+          <span><i class="fas fa-globe"></i> 256 galaxies</span>
+          <span><i class="fas fa-dial"></i> 16 glyphs · 12 digit sequences</span>
+          <span><i class="fas fa-clock"></i> Instantaneous travel</span>
+        </div>
+      </div>
+
+      <h3 style="margin-bottom: 1rem; font-weight: 400;">
+        <i class="fas fa-bolt" style="color: var(--accent-cyan);"></i> Quick Links
+      </h3>
+      <div class="quick-links-grid">
+        <div class="quick-card" onclick="document.querySelector('[data-page=address]').click()">
+          <i class="fas fa-map-signs"></i>
+          <h3>All Addresses</h3>
+          <p>Browse the complete catalog</p>
+        </div>
+        <div class="quick-card" onclick="document.querySelector('[data-page=search]').click()">
+          <i class="fas fa-search"></i>
+          <h3>Search Portals</h3>
+          <p>Find by galaxy, platform, mode</p>
+        </div>
+        <div class="quick-card" onclick="document.querySelector('[data-page=news]').click()">
+          <i class="fas fa-newspaper"></i>
+          <h3>Latest News</h3>
+          <p>Updates &amp; featured finds</p>
+        </div>
+        <div class="quick-card">
+          <i class="fas fa-dice-d6"></i>
+          <h3>Random Portal</h3>
+          <p>Discover something new</p>
+        </div>
+      </div>
+
+      <div class="grid-2col">
+        <!-- Latest Addresses -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3><i class="fas fa-clock"></i> Latest Addresses</h3>
+            <a href="#" onclick="document.querySelector('[data-page=address]').click(); return false;">View all <i class="fas fa-arrow-right"></i></a>
+          </div>
+          <div class="panel-body">
+            <div class="address-item">
+              <span class="address-glyph">0A3F:0078:0E2D:01A2</span>
+              <div class="address-meta">
+                <div class="title">Eissentam · Lush</div>
+                <div class="sub">
+                  <span><i class="fas fa-desktop"></i> PC</span>
+                  <span><i class="fas fa-gamepad"></i> Normal</span>
+                </div>
+              </div>
+              <span class="badge">new</span>
+            </div>
+            <div class="address-item">
+              <span class="address-glyph">11B2:0083:0F5C:00E4</span>
+              <div class="address-meta">
+                <div class="title">Hilbert · Desert</div>
+                <div class="sub">
+                  <span><i class="fas fa-xbox"></i> Xbox</span>
+                  <span><i class="fas fa-gamepad"></i> Survival</span>
+                </div>
+              </div>
+              <span class="badge">new</span>
+            </div>
+            <div class="address-item">
+              <span class="address-glyph">0F7D:0071:0D8A:021F</span>
+              <div class="address-meta">
+                <div class="title">Calypso · Exotic</div>
+                <div class="sub">
+                  <span><i class="fas fa-playstation"></i> PS5</span>
+                  <span><i class="fas fa-gamepad"></i> Creative</span>
+                </div>
+              </div>
+            </div>
+            <div class="address-item">
+              <span class="address-glyph">2C4E:0089:0A3B:01D7</span>
+              <div class="address-meta">
+                <div class="title">Budullangr · Frozen</div>
+                <div class="sub">
+                  <span><i class="fas fa-desktop"></i> PC</span>
+                  <span><i class="fas fa-gamepad"></i> Normal</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Addresses -->
+        <div class="panel">
+          <div class="panel-header">
+            <h3><i class="fas fa-star" style="color: var(--accent-gold);"></i> Featured Addresses</h3>
+            <span style="font-size: 0.75rem; color: var(--text-secondary);">Patreon supporters</span>
+          </div>
+          <div class="panel-body">
+            <div class="featured-quote">
+              “Awake and witness creation! The Beyond takes us in an instant. The cycle continues but our time here is brief. The galaxy is our burden. Things fall apart because entropy holds.”
+            </div>
+            <div class="featured-signature">— Featured Traveller, Partner Tier</div>
+            <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+              <span class="address-glyph" style="font-size: 0.8rem;">1A2B:00C3:0D4E:0F5A</span>
+              <span class="address-glyph" style="font-size: 0.8rem;">3F4E:005D:0C6B:0A7C</span>
+            </div>
+            <div class="flex-between mt-3">
+              <span style="color: var(--text-secondary); font-size: 0.85rem;">
+                <i class="fas fa-crown" style="color: var(--accent-gold);"></i> Partner &amp; Stakeholder tiers
+              </span>
+              <a href="#" style="color: var(--accent-cyan); font-size: 0.85rem;">Learn more <i class="fas fa-external-link-alt"></i></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="archive-row">
+        <div class="archive-links">
+          <i class="fas fa-archive" style="color: var(--accent-cyan); margin-right: 0.75rem;"></i>
+          <a href="#">View historical archives</a>
+          <a href="#">Iteration 1</a>
+          <a href="#">Iteration 2</a>
+          <a href="#">Iteration 3</a>
+        </div>
+        <a href="#" class="merch-btn"><i class="fas fa-tshirt"></i> Support via Merch</a>
+      </div>
+    </section>
+
+    <!-- ========== NEWS PAGE ========== -->
+    <section id="news" class="page-section">
+      <h2 style="font-weight: 400; margin-bottom: 1.5rem;">
+        <i class="fas fa-newspaper" style="color: var(--accent-cyan);"></i> Latest Transmissions
+      </h2>
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-card-img"><i class="fas fa-rocket"></i></div>
+          <div class="news-card-content">
+            <div class="date">2025.03.12</div>
+            <h3>Expedition Update: Portal Glyphs Rebalanced</h3>
+            <p>Hello Games releases patch 4.7, adjusting portal interference and glyph discovery rates. Travellers report smoother dialing sequences.</p>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-img"><i class="fas fa-users"></i></div>
+          <div class="news-card-content">
+            <div class="date">2025.03.05</div>
+            <h3>Community Spotlight: 3,000 Travellers Strong</h3>
+            <p>The Portal Repository crosses 2,991 registered travellers. Featured addresses from Patreon supporters now highlighted on the home page.</p>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-card-img"><i class="fas fa-globe"></i></div>
+          <div class="news-card-content">
+            <div class="date">2025.02.28</div>
+            <h3>Galactic Hub Partnership Announced</h3>
+            <p>New joint initiative to catalogue portal addresses across all 256 galaxies. Submit your finds and earn community badges.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ========== ADDRESS PAGE ========== -->
+    <section id="address" class="page-section">
+      <div class="flex-between mb-2" style="flex-wrap: wrap; gap: 1rem;">
+        <h2 style="font-weight: 400;">
+          <i class="fas fa-map-pin" style="color: var(--accent-cyan);"></i> Address Catalog
+        </h2>
+        <span style="color: var(--text-secondary); font-size: 0.9rem;">Showing 24 of 1,284 addresses</span>
+      </div>
+
+      <div class="address-toolbar">
+        <div class="filter-group">
+          <button class="filter-btn active">All</button>
+          <button class="filter-btn">PC</button>
+          <button class="filter-btn">Xbox</button>
+          <button class="filter-btn">PlayStation</button>
+          <button class="filter-btn">Normal</button>
+          <button class="filter-btn">Survival</button>
+        </div>
+        <div class="filter-group">
+          <button class="filter-btn"><i class="fas fa-sort"></i> Sort</button>
+        </div>
+      </div>
+
+      <div class="address-table">
+        <div class="table-header">
+          <span>Glyph Address</span>
+          <span>Planet / Galaxy</span>
+          <span>Platform</span>
+          <span>Mode</span>
+        </div>
+        <div class="table-row">
+          <span class="glyph-cell">0A3F:0078:0E2D:01A2</span>
+          <span class="planet-cell">Eissentam · Lush</span>
+          <span class="platform-cell">PC</span>
+          <span class="mode-cell">Normal</span>
+        </div>
+        <div class="table-row">
+          <span class="glyph-cell">11B2:0083:0F5C:00E4</span>
+          <span class="planet-cell">Hilbert · Desert</span>
+          <span class="platform-cell">Xbox</span>
+          <span class="mode-cell">Survival</span>
+        </div>
+        <div class="table-row">
+          <span class="glyph-cell">0F7D:0071:0D8A:021F</span>
+          <span class="planet-cell">Calypso · Exotic</span>
+          <span class="platform-cell">PS5</span>
+          <span class="mode-cell">Creative</span>
+        </div>
+        <div class="table-row">
+          <span class="glyph-cell">2C4E:0089:0A3B:01D7</span>
+          <span class="planet-cell">Budullangr · Frozen</span>
+          <span class="platform-cell">PC</span>
+          <span class="mode-cell">Normal</span>
+        </div>
+        <div class="table-row">
+          <span class="glyph-cell">1A2B:00C3:0D4E:0F5A</span>
+          <span class="planet-cell">Euclid · Tropical</span>
+          <span class="platform-cell">Xbox</span>
+          <span class="mode-cell">Normal</span>
+        </div>
+        <div class="table-row">
+          <span class="glyph-cell">3F4E:005D:0C6B:0A7C</span>
+          <span class="planet-cell">Isdoraijung · Barren</span>
+          <span class="platform-cell">PS5</span>
+          <span class="mode-cell">Normal</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ========== SEARCH PAGE ========== -->
+    <section id="search" class="page-section">
+      <div class="search-hero">
+        <h2><i class="fas fa-search" style="color: var(--accent-cyan);"></i> Search Portals</h2>
+        <div class="search-box-large">
+          <input type="text" placeholder="Galaxy, platform, mode, or keyword...">
+          <button><i class="fas fa-search"></i> Search</button>
+        </div>
+        <div class="search-filters">
+          <span>Euclid</span>
+          <span>Eissentam</span>
+          <span>Hilbert</span>
+          <span>Calypso</span>
+          <span>Budullangr</span>
+          <span>Isdoraijung</span>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const tabs = document.querySelectorAll('.tab-btn');
+    const sections = document.querySelectorAll('.page-section');
+
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        tabs.forEach(function (b) {
+          b.classList.remove('active');
+        });
+        sections.forEach(function (s) {
+          s.classList.remove('active');
+        });
+        btn.classList.add('active');
+        const page = btn.getAttribute('data-page');
+        const target = document.getElementById(page);
+        if (target) {
+          target.classList.add('active');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
