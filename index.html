@@ -19,13 +19,17 @@
       --bg-panel-light: #1e2a3a;
       --accent-cyan: #4dd0e1;
       --accent-gold: #f5b041;
+      --accent-purple: #8a6eff;
       --text-primary: #e3e9f2;
       --text-secondary: #a0b3c9;
+      --text-muted: #6b7f96;
       --border-dim: #2e3f54;
       --shadow: 0 10px 25px rgba(0,0,0,0.5);
       --radius: 14px;
       --transition: all 0.2s ease;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg-deep);
@@ -33,15 +37,114 @@
       line-height: 1.5;
       padding: 1.5rem;
       min-height: 100vh;
-      background-image: radial-gradient(circle at 20% 30%, #16202c 0%, #0b0e14 80%);
+      background-image:
+        radial-gradient(circle at 15% 15%, rgba(77, 208, 225, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 85% 75%, rgba(138, 110, 255, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 20% 30%, #16202c 0%, #0b0e14 80%);
     }
+
+    /* =====================================================
+       STICKY HEADER
+       ===================================================== */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      background: rgba(11, 14, 20, 0.75);
+      border-bottom: 1px solid var(--border-dim);
+      margin: -1.5rem -1.5rem 1.5rem;
+      padding: 0.6rem 1.5rem;
+    }
+
+    .site-header-inner {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .site-header .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      color: var(--accent-cyan);
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    .header-search {
+      display: flex;
+      align-items: center;
+      background: #0e161f;
+      border: 1px solid var(--border-dim);
+      border-radius: 40px;
+      padding: 0.35rem 0.35rem 0.35rem 1rem;
+      gap: 0.5rem;
+      transition: var(--transition);
+    }
+
+    .header-search:focus-within {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 16px rgba(77, 208, 225, 0.2);
+    }
+
+    .header-search i { color: var(--text-muted); font-size: 0.85rem; }
+
+    .header-search input {
+      background: transparent;
+      border: none;
+      outline: none;
+      color: var(--text-primary);
+      font-size: 0.85rem;
+      width: 160px;
+    }
+
+    .header-search button {
+      background: var(--accent-cyan);
+      color: #0b0e14;
+      border: none;
+      border-radius: 40px;
+      padding: 0.35rem 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .top-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      transition: var(--transition);
+      padding: 0.4rem 0.6rem;
+      border-radius: 8px;
+    }
+
+    .top-link:hover { color: var(--accent-cyan); background: rgba(77,208,225,0.06); }
 
     .app {
       max-width: 1400px;
       margin: 0 auto;
     }
 
-    /* ---------- HEADER ---------- */
+    /* ---------- TOP BAR ---------- */
     .top-bar {
       display: flex;
       flex-wrap: wrap;
@@ -73,7 +176,10 @@
       font-weight: 500;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--accent-cyan);
+      background: linear-gradient(135deg, #ffffff, var(--accent-cyan));
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
       line-height: 1.2;
     }
 
@@ -85,17 +191,63 @@
       display: block;
     }
 
-    .stats-badge {
-      background: rgba(77, 208, 225, 0.08);
-      border: 1px solid rgba(77, 208, 225, 0.3);
-      padding: 0.5rem 1.2rem;
-      border-radius: 40px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--accent-cyan);
+    /* ---------- STAT CARDS ---------- */
+    .stat-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem;
+      box-shadow: var(--shadow);
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 1rem;
+      transition: var(--transition);
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .stat-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-3px);
+      background: var(--bg-panel-light);
+    }
+
+    .stat-icon {
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      background: rgba(77, 208, 225, 0.1);
+      color: var(--accent-cyan);
+      flex-shrink: 0;
+    }
+
+    .stat-card.gold .stat-icon { background: rgba(245, 176, 65, 0.1); color: var(--accent-gold); }
+    .stat-card.purple .stat-icon { background: rgba(138, 110, 255, 0.12); color: var(--accent-purple); }
+
+    .stat-info .stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.1;
+      color: #fff;
+    }
+
+    .stat-info .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-secondary);
+      margin-top: 0.15rem;
     }
 
     /* ---------- PAGE TABS ---------- */
@@ -127,10 +279,7 @@
       gap: 0.6rem;
     }
 
-    .tab-btn:hover {
-      color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.04);
-    }
+    .tab-btn:hover { color: var(--text-primary); background: rgba(255, 255, 255, 0.04); }
 
     .tab-btn.active {
       background: var(--accent-cyan);
@@ -139,21 +288,15 @@
     }
 
     /* ---------- PAGE SECTIONS ---------- */
-    .page-section {
-      display: none;
-      animation: fadeIn 0.25s ease;
-    }
-
-    .page-section.active {
-      display: block;
-    }
+    .page-section { display: none; animation: fadeIn 0.25s ease; }
+    .page-section.active { display: block; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ---------- HOME ---------- */
+    /* ---------- HOME / HERO ---------- */
     .hero {
       background: linear-gradient(145deg, #101a24, #0c131c);
       border-radius: var(--radius);
@@ -170,9 +313,9 @@
       position: absolute;
       top: -30%;
       right: -10%;
-      width: 300px;
-      height: 300px;
-      background: radial-gradient(circle, rgba(77, 208, 225, 0.12) 0%, transparent 70%);
+      width: 320px;
+      height: 320px;
+      background: radial-gradient(circle, rgba(77, 208, 225, 0.14) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
     }
@@ -182,13 +325,15 @@
       font-weight: 400;
       margin-bottom: 0.75rem;
       color: #fff;
+      position: relative;
     }
 
     .hero p {
       color: var(--text-secondary);
-      max-width: 700px;
+      max-width: 720px;
       font-size: 1.05rem;
       margin-bottom: 0.5rem;
+      position: relative;
     }
 
     .hero-sub {
@@ -198,13 +343,59 @@
       margin-top: 1.5rem;
       color: var(--text-secondary);
       font-size: 0.95rem;
+      position: relative;
     }
 
-    .hero-sub i {
+    .hero-sub i { color: var(--accent-cyan); margin-right: 0.4rem; }
+
+    /* ---------- CTA ROW ---------- */
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+      position: relative;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.8rem 1.6rem;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      cursor: pointer;
+      transition: var(--transition);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary {
+      background: var(--accent-cyan);
+      color: #0b0e14;
+      box-shadow: 0 0 20px rgba(77, 208, 225, 0.3);
+    }
+
+    .btn-primary:hover { background: #6ee2f0; box-shadow: 0 0 28px rgba(77, 208, 225, 0.55); }
+
+    .btn-ghost {
+      background: transparent;
       color: var(--accent-cyan);
-      margin-right: 0.4rem;
+      border-color: var(--accent-cyan);
     }
 
+    .btn-ghost:hover { background: rgba(77, 208, 225, 0.1); }
+
+    .btn-gold {
+      background: var(--accent-gold);
+      color: #1a1300;
+      box-shadow: 0 0 20px rgba(245, 176, 65, 0.25);
+    }
+
+    .btn-gold:hover { background: #ffc565; box-shadow: 0 0 28px rgba(245, 176, 65, 0.5); }
+
+    /* ---------- QUICK LINKS ---------- */
     .quick-links-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -230,28 +421,11 @@
       background: var(--bg-panel-light);
     }
 
-    .quick-card i {
-      font-size: 2rem;
-      color: var(--accent-cyan);
-      margin-bottom: 0.75rem;
-    }
+    .quick-card i { font-size: 2rem; color: var(--accent-cyan); margin-bottom: 0.75rem; }
+    .quick-card h3 { font-weight: 500; font-size: 1.2rem; margin-bottom: 0.4rem; }
+    .quick-card p { font-size: 0.85rem; color: var(--text-secondary); }
 
-    .quick-card h3 {
-      font-weight: 500;
-      font-size: 1.2rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .quick-card p {
-      font-size: 0.85rem;
-      color: var(--text-secondary);
-    }
-
-    .hero h2 i {
-      color: var(--accent-cyan);
-      margin-right: 0.5rem;
-    }
-
+    /* ---------- PANELS / 2-COL ---------- */
     .grid-2col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -259,9 +433,7 @@
       margin-bottom: 2rem;
     }
 
-    @media (max-width: 750px) {
-      .grid-2col { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 850px) { .grid-2col { grid-template-columns: 1fr; } }
 
     .panel {
       background: var(--bg-panel);
@@ -278,6 +450,8 @@
       align-items: center;
       justify-content: space-between;
       background: rgba(0,0,0,0.2);
+      gap: 0.75rem;
+      flex-wrap: wrap;
     }
 
     .panel-header h3 {
@@ -288,10 +462,6 @@
       gap: 0.6rem;
     }
 
-    .panel-header h3 i {
-      color: var(--accent-cyan);
-    }
-
     .panel-header a {
       color: var(--accent-cyan);
       font-size: 0.85rem;
@@ -299,53 +469,75 @@
       font-weight: 500;
     }
 
-    .panel-body {
-      padding: 1.25rem 1.5rem;
+    .panel-body { padding: 1.25rem 1.5rem; }
+
+    /* ---------- CARD GRID ---------- */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
     }
 
-    .address-item {
+    .address-card {
+      background: var(--bg-panel);
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.15rem;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      cursor: pointer;
       display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.8rem 0;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
+      flex-direction: column;
+      gap: 0.7rem;
     }
 
-    .address-item:last-child {
-      border-bottom: none;
+    .address-card:hover {
+      border-color: var(--accent-cyan);
+      transform: translateY(-3px);
+      background: var(--bg-panel-light);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.5);
     }
 
-    .address-glyph {
-      background: #0f1a22;
-      border-radius: 8px;
-      padding: 0.3rem 0.8rem;
+    .address-card .card-glyph {
       font-family: 'Courier New', monospace;
       font-weight: 700;
       font-size: 0.9rem;
-      color: var(--accent-cyan);
-      border: 1px solid var(--border-dim);
       letter-spacing: 1px;
-      white-space: nowrap;
+      color: var(--accent-cyan);
+      background: #0f1a22;
+      border: 1px solid var(--border-dim);
+      border-radius: 8px;
+      padding: 0.35rem 0.7rem;
+      align-self: flex-start;
     }
 
-    .address-meta {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .address-meta .title {
+    .address-card .card-title {
       font-weight: 500;
-      font-size: 0.95rem;
+      font-size: 1rem;
+      color: #fff;
     }
 
-    .address-meta .sub {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
+    .address-card .card-meta {
       display: flex;
-      gap: 0.8rem;
-      margin-top: 0.15rem;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      color: var(--text-secondary);
     }
 
+    .address-card .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+      padding-top: 0.6rem;
+      border-top: 1px solid rgba(255,255,255,0.04);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* ---------- BADGE ---------- */
     .badge {
       background: rgba(77, 208, 225, 0.15);
       color: var(--accent-cyan);
@@ -357,13 +549,16 @@
       letter-spacing: 0.5px;
     }
 
+    /* ---------- FEATURED QUOTE ---------- */
     .featured-quote {
       font-style: italic;
-      color: #ccdbe9;
-      border-left: 3px solid var(--accent-gold);
-      padding-left: 1.25rem;
-      margin: 1rem 0;
-      font-size: 0.95rem;
+      color: #e7eef8;
+      background: linear-gradient(135deg, rgba(245, 176, 65, 0.08), rgba(245, 176, 65, 0.02));
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 0 10px 10px 0;
+      padding: 1.25rem 1.5rem;
+      margin: 0.5rem 0 1.25rem;
+      font-size: 1.05rem;
       line-height: 1.7;
     }
 
@@ -375,6 +570,7 @@
       margin-top: 0.5rem;
     }
 
+    /* ---------- ARCHIVE ROW ---------- */
     .archive-row {
       display: flex;
       flex-wrap: wrap;
@@ -396,32 +592,6 @@
       transition: var(--transition);
     }
 
-    .archive-links a:hover {
-      color: var(--accent-cyan);
-    }
-
-    .merch-btn {
-      background: transparent;
-      border: 1px solid var(--accent-cyan);
-      color: var(--accent-cyan);
-      padding: 0.7rem 1.8rem;
-      border-radius: 40px;
-      font-weight: 600;
-      font-size: 0.9rem;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      transition: var(--transition);
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .merch-btn:hover {
-      background: var(--accent-cyan);
-      color: #0b0e14;
-      box-shadow: 0 0 20px rgba(77, 208, 225, 0.4);
-    }
-
     /* ---------- NEWS ---------- */
     .news-grid {
       display: grid;
@@ -438,10 +608,7 @@
       box-shadow: var(--shadow);
     }
 
-    .news-card:hover {
-      transform: translateY(-4px);
-      border-color: var(--accent-cyan);
-    }
+    .news-card:hover { transform: translateY(-4px); border-color: var(--accent-cyan); }
 
     .news-card-img {
       height: 140px;
@@ -454,9 +621,7 @@
       border-bottom: 1px solid var(--border-dim);
     }
 
-    .news-card-content {
-      padding: 1.5rem;
-    }
+    .news-card-content { padding: 1.5rem; }
 
     .news-card-content .date {
       font-size: 0.75rem;
@@ -466,18 +631,10 @@
       margin-bottom: 0.5rem;
     }
 
-    .news-card-content h3 {
-      font-weight: 500;
-      margin-bottom: 0.75rem;
-      font-size: 1.25rem;
-    }
+    .news-card-content h3 { font-weight: 500; margin-bottom: 0.75rem; font-size: 1.25rem; }
+    .news-card-content p { color: var(--text-secondary); font-size: 0.9rem; }
 
-    .news-card-content p {
-      color: var(--text-secondary);
-      font-size: 0.9rem;
-    }
-
-    /* ---------- ADDRESS ---------- */
+    /* ---------- ADDRESS TOOLBAR ---------- */
     .address-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -487,11 +644,7 @@
       justify-content: space-between;
     }
 
-    .filter-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-    }
+    .filter-group { display: flex; flex-wrap: wrap; gap: 0.75rem; }
 
     .filter-btn {
       background: var(--bg-panel);
@@ -512,76 +665,20 @@
       font-weight: 600;
     }
 
-    .address-table {
+    .sort-select {
       background: var(--bg-panel);
-      border-radius: var(--radius);
       border: 1px solid var(--border-dim);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-    }
-
-    .table-header {
-      display: grid;
-      grid-template-columns: 1.5fr 2fr 1fr 1fr;
-      padding: 1rem 1.5rem;
-      background: rgba(0,0,0,0.3);
-      font-size: 0.8rem;
-      text-transform: uppercase;
-      letter-spacing: 1px;
       color: var(--text-secondary);
-      border-bottom: 1px solid var(--border-dim);
-      font-weight: 600;
-    }
-
-    .table-row {
-      display: grid;
-      grid-template-columns: 1.5fr 2fr 1fr 1fr;
-      padding: 1rem 1.5rem;
-      align-items: center;
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-      transition: var(--transition);
-    }
-
-    .table-row:hover {
-      background: rgba(77, 208, 225, 0.03);
-    }
-
-    .table-row:last-child {
-      border-bottom: none;
-    }
-
-    .glyph-cell {
-      font-family: 'Courier New', monospace;
-      color: var(--accent-cyan);
-      font-weight: 700;
-      letter-spacing: 1px;
-    }
-
-    .planet-cell {
-      font-weight: 500;
-    }
-
-    .platform-cell,
-    .mode-cell {
-      color: var(--text-secondary);
+      padding: 0.5rem 1rem;
+      border-radius: 30px;
       font-size: 0.85rem;
+      cursor: pointer;
+      outline: none;
     }
 
-    @media (max-width: 700px) {
-      .table-header,
-      .table-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 0.5rem;
-      }
-      .table-header span:nth-child(3),
-      .table-header span:nth-child(4),
-      .table-row span:nth-child(3),
-      .table-row span:nth-child(4) {
-        display: none;
-      }
-    }
-
-    /* ---------- SEARCH ---------- */
+    /* =====================================================
+       SEARCH
+       ===================================================== */
     .search-hero {
       background: var(--bg-panel);
       border-radius: var(--radius);
@@ -592,10 +689,7 @@
       text-align: center;
     }
 
-    .search-hero h2 {
-      font-weight: 400;
-      margin-bottom: 1.5rem;
-    }
+    .search-hero h2 { font-weight: 400; margin-bottom: 1.5rem; }
 
     .search-box-large {
       display: flex;
@@ -616,15 +710,6 @@
       transition: var(--transition);
     }
 
-    .search-box-large input::placeholder {
-      color: #5e7185;
-    }
-
-    .search-box-large input:focus {
-      border-color: var(--accent-cyan);
-      box-shadow: 0 0 20px rgba(77, 208, 225, 0.2);
-    }
-
     .search-box-large button {
       background: var(--accent-cyan);
       border: none;
@@ -638,11 +723,6 @@
       display: flex;
       align-items: center;
       gap: 0.5rem;
-    }
-
-    .search-box-large button:hover {
-      background: #6ee2f0;
-      box-shadow: 0 0 25px rgba(77, 208, 225, 0.5);
     }
 
     .search-filters {
@@ -664,22 +744,219 @@
       transition: var(--transition);
     }
 
-    .search-filters span:hover {
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
+    .search-results { margin-top: 2rem; }
+    .search-results h3 { font-weight: 500; margin-bottom: 1.25rem; font-size: 1.2rem; }
+
+    /* ---------- SUBMIT FORM ---------- */
+    .submit-card {
+      background: linear-gradient(135deg, rgba(77,208,225,0.06), rgba(138,110,255,0.06));
+      border: 1px solid var(--border-dim);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-top: 1.5rem;
     }
 
-    /* ---------- UTILS ---------- */
-    .mt-3 { margin-top: 1.5rem; }
-    .mb-2 { margin-bottom: 1rem; }
-    .flex-between {
+    .submit-card h3 {
+      font-weight: 500;
+      font-size: 1.15rem;
+      margin-bottom: 0.4rem;
       display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .submit-card p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1rem; }
+
+    .submit-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr auto;
+      gap: 0.75rem;
+      align-items: center;
+    }
+
+    @media (max-width: 700px) { .submit-form { grid-template-columns: 1fr; } }
+
+    .submit-form input,
+    .submit-form select {
+      background: #0e161f;
+      border: 1px solid var(--border-dim);
+      border-radius: 40px;
+      padding: 0.7rem 1rem;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition);
+      width: 100%;
+    }
+
+    /* =====================================================
+       PSEUDO-ELEMENTS (::placeholder) — least specific
+       of the pseudo group, declared before :focus / :hover
+       ===================================================== */
+    .search-box-large input::placeholder { color: #5e7185; }
+    .submit-form input::placeholder { color: var(--text-muted); }
+    .header-search input::placeholder { color: var(--text-muted); }
+
+    /* =====================================================
+       PSEUDO-CLASSES (:focus, :hover)
+       ===================================================== */
+    .search-box-large input:focus {
+      border-color: var(--accent-cyan);
+      box-shadow: 0 0 20px rgba(77, 208, 225, 0.2);
+    }
+
+    .submit-form input:focus,
+    .submit-form select:focus { border-color: var(--accent-cyan); }
+
+    .search-box-large button:hover { background: #6ee2f0; box-shadow: 0 0 25px rgba(77, 208, 225, 0.5); }
+    .header-search button:hover { background: #6ee2f0; }
+
+    /* =====================================================
+       FOOTER — base rule declared BEFORE .archive-links a:hover
+       ===================================================== */
+    .site-footer {
+      margin-top: 3rem;
+      padding: 1.5rem 0 1rem;
+      border-top: 1px solid var(--border-dim);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
       justify-content: space-between;
       align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .site-footer a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      margin-right: 1.25rem;
+      transition: var(--transition);
+    }
+
+    /* MORE SPECIFIC than .site-footer a — declared after it */
+    .archive-links a:hover { color: var(--accent-cyan); }
+
+    .site-footer a:hover { color: var(--accent-cyan); }
+
+    /* =====================================================
+       FRESHNESS BAR
+       ===================================================== */
+    .freshness-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.75rem;
+      background: rgba(77, 208, 225, 0.06);
+      border: 1px solid rgba(77, 208, 225, 0.25);
+      border-radius: var(--radius);
+      padding: 0.75rem 1.25rem;
+      margin-bottom: 2rem;
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    .freshness-bar .live-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #5eff9b;
+      box-shadow: 0 0 8px #5eff9b;
+      margin-right: 0.5rem;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+
+    /* =====================================================
+       BACK TO TOP
+       ===================================================== */
+    .back-to-top {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      color: #0b0e14;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(77, 208, 225, 0.4);
+      transition: var(--transition);
+      z-index: 90;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .back-to-top.visible { opacity: 1; pointer-events: auto; }
+
+    .back-to-top:hover { background: #6ee2f0; transform: translateY(-3px); }
+
+    /* =====================================================
+       UTILS
+       ===================================================== */
+    .mt-3 { margin-top: 1.5rem; }
+    .mb-2 { margin-bottom: 1rem; }
+    .flex-between { display: flex; justify-content: space-between; align-items: center; }
+
+    .section-title {
+      font-weight: 400;
+      margin-bottom: 1rem;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* =====================================================
+       ICON COLOR RULES — ascending specificity order,
+       each selector declared exactly once.
+       ===================================================== */
+    .section-title i { color: var(--accent-cyan); }
+
+    /* MORE SPECIFIC than .section-title i — declared after it */
+    .panel-header h3 i { color: var(--accent-cyan); }
+
+    .site-header .brand i {
+      font-size: 1.1rem;
+      filter: drop-shadow(0 0 6px rgba(77, 208, 225, 0.5));
     }
   </style>
 </head>
 <body>
+
+  <!-- ========== STICKY HEADER ========== -->
+  <div class="site-header">
+    <div class="site-header-inner">
+      <a href="#home" class="brand" onclick="document.querySelector('[data-page=home]').click(); return false;">
+        <i class="fas fa-portal"></i> The Portal Repository
+      </a>
+      <div class="header-actions">
+        <div class="header-search">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Search addresses...">
+          <button type="button">Go</button>
+        </div>
+        <a href="#address" class="top-link" onclick="document.querySelector('[data-page=address]').click(); return false;">
+          <i class="fas fa-map-pin"></i> Browse
+        </a>
+        <a href="#submit" class="top-link" onclick="document.querySelector('[data-page=address]').click(); return false;">
+          <i class="fas fa-plus-circle"></i> Submit
+        </a>
+      </div>
+    </div>
+  </div>
+
   <div class="app">
 
     <!-- ========== TOP BAR ========== -->
@@ -691,10 +968,46 @@
           <span>Cosmos · No Man's Sky</span>
         </div>
       </div>
-      <div class="stats-badge">
-        <i class="fas fa-users"></i> 2,991 Registered Travellers
+      <div class="cta-row" style="margin-top: 0;">
+        <a href="#" class="btn btn-primary" onclick="document.querySelector('[data-page=search]').click(); return false;">
+          <i class="fas fa-search"></i> Find a Portal
+        </a>
+        <a href="#" class="btn btn-ghost" onclick="document.querySelector('[data-page=address]').click(); return false;">
+          <i class="fas fa-plus"></i> Submit Address
+        </a>
       </div>
     </header>
+
+    <!-- ========== STAT CARDS ========== -->
+    <div class="stat-cards">
+      <a class="stat-card" href="#" onclick="document.querySelector('[data-page=address]').click(); return false;">
+        <div class="stat-icon"><i class="fas fa-database"></i></div>
+        <div class="stat-info">
+          <div class="stat-value">3,743</div>
+          <div class="stat-label">Total Addresses</div>
+        </div>
+      </a>
+      <a class="stat-card gold" href="#" onclick="document.querySelector('[data-page=address]').click(); return false;">
+        <div class="stat-icon"><i class="fas fa-users"></i></div>
+        <div class="stat-info">
+          <div class="stat-value">2,991</div>
+          <div class="stat-label">Registered Travellers</div>
+        </div>
+      </a>
+      <a class="stat-card purple" href="#" onclick="document.querySelector('[data-page=address]').click(); return false;">
+        <div class="stat-icon"><i class="fas fa-globe"></i></div>
+        <div class="stat-info">
+          <div class="stat-value">256</div>
+          <div class="stat-label">Galaxies Catalogued</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- ========== FRESHNESS BAR ========== -->
+    <div class="freshness-bar">
+      <span><span class="live-dot"></span> 14 new addresses submitted in the last 24 hours</span>
+      <span><i class="fas fa-clock"></i> Last updated: today at 14:32 UTC</span>
+    </div>
 
     <!-- ========== PAGE TABS ========== -->
     <div class="page-tabs">
@@ -711,16 +1024,27 @@
         <p>The Portal Repository is a catalog of player-submitted portal addresses in No Man’s Sky. Addresses are categorized by game platform, mode, galaxy and keywords.</p>
         <p>Each galaxy contains a network of portals (similar to Stargates) that allow instantaneous travel between worlds within a galaxy.</p>
         <p>Portals can be activated by dialing a twelve-digit sequence (out of the sixteen total glyphs). You can learn more about portals on the No Man’s Sky Gamepedia wiki page.</p>
+
         <div class="hero-sub">
           <span><i class="fas fa-globe"></i> 256 galaxies</span>
           <span><i class="fas fa-dial"></i> 16 glyphs · 12 digit sequences</span>
           <span><i class="fas fa-clock"></i> Instantaneous travel</span>
         </div>
+
+        <div class="cta-row">
+          <a href="#" class="btn btn-primary" onclick="document.querySelector('[data-page=search]').click(); return false;">
+            <i class="fas fa-search"></i> Browse by Galaxy
+          </a>
+          <a href="#" class="btn btn-ghost" onclick="document.querySelector('[data-page=address]').click(); return false;">
+            <i class="fas fa-plus-circle"></i> Submit an Address
+          </a>
+          <a href="#" class="btn btn-ghost">
+            <i class="fas fa-book"></i> Learn About Portals
+          </a>
+        </div>
       </div>
 
-      <h3 style="margin-bottom: 1rem; font-weight: 400;">
-        <i class="fas fa-bolt" style="color: var(--accent-cyan);"></i> Quick Links
-      </h3>
+      <h3 class="section-title"><i class="fas fa-bolt"></i> Quick Links</h3>
       <div class="quick-links-grid">
         <div class="quick-card" onclick="document.querySelector('[data-page=address]').click()">
           <i class="fas fa-map-signs"></i>
@@ -744,80 +1068,70 @@
         </div>
       </div>
 
-      <div class="grid-2col">
-        <!-- Latest Addresses -->
-        <div class="panel">
-          <div class="panel-header">
-            <h3><i class="fas fa-clock"></i> Latest Addresses</h3>
-            <a href="#" onclick="document.querySelector('[data-page=address]').click(); return false;">View all <i class="fas fa-arrow-right"></i></a>
+      <h3 class="section-title"><i class="fas fa-clock"></i> Latest Addresses</h3>
+      <div class="card-grid">
+        <div class="address-card">
+          <span class="card-glyph">0A3F:0078:0E2D:01A2</span>
+          <div class="card-title">Eissentam · Lush</div>
+          <div class="card-meta">
+            <span><i class="fas fa-desktop"></i> PC</span>
+            <span><i class="fas fa-gamepad"></i> Normal</span>
           </div>
-          <div class="panel-body">
-            <div class="address-item">
-              <span class="address-glyph">0A3F:0078:0E2D:01A2</span>
-              <div class="address-meta">
-                <div class="title">Eissentam · Lush</div>
-                <div class="sub">
-                  <span><i class="fas fa-desktop"></i> PC</span>
-                  <span><i class="fas fa-gamepad"></i> Normal</span>
-                </div>
-              </div>
-              <span class="badge">new</span>
-            </div>
-            <div class="address-item">
-              <span class="address-glyph">11B2:0083:0F5C:00E4</span>
-              <div class="address-meta">
-                <div class="title">Hilbert · Desert</div>
-                <div class="sub">
-                  <span><i class="fas fa-xbox"></i> Xbox</span>
-                  <span><i class="fas fa-gamepad"></i> Survival</span>
-                </div>
-              </div>
-              <span class="badge">new</span>
-            </div>
-            <div class="address-item">
-              <span class="address-glyph">0F7D:0071:0D8A:021F</span>
-              <div class="address-meta">
-                <div class="title">Calypso · Exotic</div>
-                <div class="sub">
-                  <span><i class="fas fa-playstation"></i> PS5</span>
-                  <span><i class="fas fa-gamepad"></i> Creative</span>
-                </div>
-              </div>
-            </div>
-            <div class="address-item">
-              <span class="address-glyph">2C4E:0089:0A3B:01D7</span>
-              <div class="address-meta">
-                <div class="title">Budullangr · Frozen</div>
-                <div class="sub">
-                  <span><i class="fas fa-desktop"></i> PC</span>
-                  <span><i class="fas fa-gamepad"></i> Normal</span>
-                </div>
-              </div>
-            </div>
+          <div class="card-footer">
+            <span><i class="fas fa-clock"></i> 2h ago</span>
+            <span class="badge">new</span>
           </div>
         </div>
-
-        <!-- Featured Addresses -->
-        <div class="panel">
-          <div class="panel-header">
-            <h3><i class="fas fa-star" style="color: var(--accent-gold);"></i> Featured Addresses</h3>
-            <span style="font-size: 0.75rem; color: var(--text-secondary);">Patreon supporters</span>
+        <div class="address-card">
+          <span class="card-glyph">11B2:0083:0F5C:00E4</span>
+          <div class="card-title">Hilbert · Desert</div>
+          <div class="card-meta">
+            <span><i class="fas fa-xbox"></i> Xbox</span>
+            <span><i class="fas fa-gamepad"></i> Survival</span>
           </div>
-          <div class="panel-body">
-            <div class="featured-quote">
-              “Awake and witness creation! The Beyond takes us in an instant. The cycle continues but our time here is brief. The galaxy is our burden. Things fall apart because entropy holds.”
-            </div>
-            <div class="featured-signature">— Featured Traveller, Partner Tier</div>
-            <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
-              <span class="address-glyph" style="font-size: 0.8rem;">1A2B:00C3:0D4E:0F5A</span>
-              <span class="address-glyph" style="font-size: 0.8rem;">3F4E:005D:0C6B:0A7C</span>
-            </div>
-            <div class="flex-between mt-3">
-              <span style="color: var(--text-secondary); font-size: 0.85rem;">
-                <i class="fas fa-crown" style="color: var(--accent-gold);"></i> Partner &amp; Stakeholder tiers
-              </span>
-              <a href="#" style="color: var(--accent-cyan); font-size: 0.85rem;">Learn more <i class="fas fa-external-link-alt"></i></a>
-            </div>
+          <div class="card-footer">
+            <span><i class="fas fa-clock"></i> 5h ago</span>
+            <span class="badge">new</span>
+          </div>
+        </div>
+        <div class="address-card">
+          <span class="card-glyph">0F7D:0071:0D8A:021F</span>
+          <div class="card-title">Calypso · Exotic</div>
+          <div class="card-meta">
+            <span><i class="fas fa-playstation"></i> PS5</span>
+            <span><i class="fas fa-gamepad"></i> Creative</span>
+          </div>
+          <div class="card-footer">
+            <span><i class="fas fa-clock"></i> 11h ago</span>
+          </div>
+        </div>
+        <div class="address-card">
+          <span class="card-glyph">2C4E:0089:0A3B:01D7</span>
+          <div class="card-title">Budullangr · Frozen</div>
+          <div class="card-meta">
+            <span><i class="fas fa-desktop"></i> PC</span>
+            <span><i class="fas fa-gamepad"></i> Normal</span>
+          </div>
+          <div class="card-footer">
+            <span><i class="fas fa-clock"></i> 1d ago</span>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-title"><i class="fas fa-star" style="color: var(--accent-gold);"></i> Featured Addresses</h3>
+      <div class="panel">
+        <div class="panel-header">
+          <h3><i class="fas fa-crown" style="color: var(--accent-gold);"></i> Patreon Spotlight</h3>
+          <span style="font-size: 0.75rem; color: var(--text-secondary);">Partner &amp; Stakeholder tiers</span>
+        </div>
+        <div class="panel-body">
+          <blockquote class="featured-quote">
+            “Awake and witness creation! The Beyond takes us in an instant. The cycle continues but our time here is brief. The galaxy is our burden. Things fall apart because entropy holds.”
+          </blockquote>
+          <div class="featured-signature">— Featured Traveller, Partner Tier</div>
+          <div style="margin-top: 1.25rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <span class="card-glyph" style="font-family:'Courier New',monospace;font-weight:700;font-size:0.8rem;color:var(--accent-cyan);background:#0f1a22;border:1px solid var(--border-dim);border-radius:8px;padding:0.3rem 0.8rem;">1A2B:00C3:0D4E:0F5A</span>
+            <span class="card-glyph" style="font-family:'Courier New',monospace;font-weight:700;font-size:0.8rem;color:var(--accent-cyan);background:#0f1a22;border:1px solid var(--border-dim);border-radius:8px;padding:0.3rem 0.8rem;">3F4E:005D:0C6B:0A7C</span>
           </div>
         </div>
       </div>
@@ -825,19 +1139,19 @@
       <div class="archive-row">
         <div class="archive-links">
           <i class="fas fa-archive" style="color: var(--accent-cyan); margin-right: 0.75rem;"></i>
-          <a href="#">View historical archives</a>
+          <a href="#">Historical archives</a>
           <a href="#">Iteration 1</a>
           <a href="#">Iteration 2</a>
           <a href="#">Iteration 3</a>
         </div>
-        <a href="#" class="merch-btn"><i class="fas fa-tshirt"></i> Support via Merch</a>
+        <a href="#" class="btn btn-gold"><i class="fas fa-tshirt"></i> Support via Merch</a>
       </div>
     </section>
 
     <!-- ========== NEWS PAGE ========== -->
     <section id="news" class="page-section">
-      <h2 style="font-weight: 400; margin-bottom: 1.5rem;">
-        <i class="fas fa-newspaper" style="color: var(--accent-cyan);"></i> Latest Transmissions
+      <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 1.5rem;">
+        <i class="fas fa-newspaper"></i> Latest Transmissions
       </h2>
       <div class="news-grid">
         <article class="news-card">
@@ -870,8 +1184,8 @@
     <!-- ========== ADDRESS PAGE ========== -->
     <section id="address" class="page-section">
       <div class="flex-between mb-2" style="flex-wrap: wrap; gap: 1rem;">
-        <h2 style="font-weight: 400;">
-          <i class="fas fa-map-pin" style="color: var(--accent-cyan);"></i> Address Catalog
+        <h2 class="section-title" style="font-size: 1.6rem; margin: 0;">
+          <i class="fas fa-map-pin"></i> Address Catalog
         </h2>
         <span style="color: var(--text-secondary); font-size: 0.9rem;">Showing 24 of 1,284 addresses</span>
       </div>
@@ -886,60 +1200,96 @@
           <button class="filter-btn">Survival</button>
         </div>
         <div class="filter-group">
-          <button class="filter-btn"><i class="fas fa-sort"></i> Sort</button>
+          <select class="sort-select">
+            <option>Sort: Newest first</option>
+            <option>Sort: Oldest first</option>
+            <option>Sort: Most viewed</option>
+            <option>Sort: A–Z by galaxy</option>
+          </select>
         </div>
       </div>
 
-      <div class="address-table">
-        <div class="table-header">
-          <span>Glyph Address</span>
-          <span>Planet / Galaxy</span>
-          <span>Platform</span>
-          <span>Mode</span>
+      <div class="card-grid">
+        <div class="address-card">
+          <span class="card-glyph">0A3F:0078:0E2D:01A2</span>
+          <div class="card-title">Eissentam · Lush</div>
+          <div class="card-meta">
+            <span><i class="fas fa-desktop"></i> PC</span>
+            <span><i class="fas fa-gamepad"></i> Normal</span>
+          </div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 342</span><span>2d ago</span></div>
         </div>
-        <div class="table-row">
-          <span class="glyph-cell">0A3F:0078:0E2D:01A2</span>
-          <span class="planet-cell">Eissentam · Lush</span>
-          <span class="platform-cell">PC</span>
-          <span class="mode-cell">Normal</span>
+        <div class="address-card">
+          <span class="card-glyph">11B2:0083:0F5C:00E4</span>
+          <div class="card-title">Hilbert · Desert</div>
+          <div class="card-meta">
+            <span><i class="fas fa-xbox"></i> Xbox</span>
+            <span><i class="fas fa-gamepad"></i> Survival</span>
+          </div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 187</span><span>3d ago</span></div>
         </div>
-        <div class="table-row">
-          <span class="glyph-cell">11B2:0083:0F5C:00E4</span>
-          <span class="planet-cell">Hilbert · Desert</span>
-          <span class="platform-cell">Xbox</span>
-          <span class="mode-cell">Survival</span>
+        <div class="address-card">
+          <span class="card-glyph">0F7D:0071:0D8A:021F</span>
+          <div class="card-title">Calypso · Exotic</div>
+          <div class="card-meta">
+            <span><i class="fas fa-playstation"></i> PS5</span>
+            <span><i class="fas fa-gamepad"></i> Creative</span>
+          </div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 921</span><span>5d ago</span></div>
         </div>
-        <div class="table-row">
-          <span class="glyph-cell">0F7D:0071:0D8A:021F</span>
-          <span class="planet-cell">Calypso · Exotic</span>
-          <span class="platform-cell">PS5</span>
-          <span class="mode-cell">Creative</span>
+        <div class="address-card">
+          <span class="card-glyph">2C4E:0089:0A3B:01D7</span>
+          <div class="card-title">Budullangr · Frozen</div>
+          <div class="card-meta">
+            <span><i class="fas fa-desktop"></i> PC</span>
+            <span><i class="fas fa-gamepad"></i> Normal</span>
+          </div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 74</span><span>1w ago</span></div>
         </div>
-        <div class="table-row">
-          <span class="glyph-cell">2C4E:0089:0A3B:01D7</span>
-          <span class="planet-cell">Budullangr · Frozen</span>
-          <span class="platform-cell">PC</span>
-          <span class="mode-cell">Normal</span>
+        <div class="address-card">
+          <span class="card-glyph">1A2B:00C3:0D4E:0F5A</span>
+          <div class="card-title">Euclid · Tropical</div>
+          <div class="card-meta">
+            <span><i class="fas fa-xbox"></i> Xbox</span>
+            <span><i class="fas fa-gamepad"></i> Normal</span>
+          </div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 1.2k</span><span>1w ago</span></div>
         </div>
-        <div class="table-row">
-          <span class="glyph-cell">1A2B:00C3:0D4E:0F5A</span>
-          <span class="planet-cell">Euclid · Tropical</span>
-          <span class="platform-cell">Xbox</span>
-          <span class="mode-cell">Normal</span>
+        <div class="address-card">
+          <span class="card-glyph">3F4E:005D:0C6B:0A7C</span>
+          <div class="card-title">Isdoraijung · Barren</div>
+          <div class="card-meta">
+            <span><i class="fas fa-playstation"></i> PS5</span>
+            <span><i class="fas fa-gamepad"></i> Normal</span>
+          </div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 509</span><span>2w ago</span></div>
         </div>
-        <div class="table-row">
-          <span class="glyph-cell">3F4E:005D:0C6B:0A7C</span>
-          <span class="planet-cell">Isdoraijung · Barren</span>
-          <span class="platform-cell">PS5</span>
-          <span class="mode-cell">Normal</span>
-        </div>
+      </div>
+
+      <div class="submit-card" id="submit">
+        <h3><i class="fas fa-plus-circle" style="color: var(--accent-cyan);"></i> Submit an Address</h3>
+        <p>Found a portal worth sharing? Add it to the catalog — it takes less than a minute.</p>
+        <form class="submit-form" onsubmit="event.preventDefault(); alert('Thanks! Your address has been submitted for review.');">
+          <input type="text" placeholder="Glyph address (e.g. 0A3F:0078:0E2D:01A2)" required>
+          <select required>
+            <option value="">Select platform &amp; mode...</option>
+            <option>PC · Normal</option>
+            <option>PC · Survival</option>
+            <option>Xbox · Normal</option>
+            <option>PS5 · Normal</option>
+            <option>PS5 · Creative</option>
+          </select>
+          <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Submit</button>
+        </form>
       </div>
     </section>
 
     <!-- ========== SEARCH PAGE ========== -->
     <section id="search" class="page-section">
       <div class="search-hero">
-        <h2><i class="fas fa-search" style="color: var(--accent-cyan);"></i> Search Portals</h2>
+        <h2 class="section-title" style="font-size: 1.6rem; justify-content: center; margin-bottom: 1.5rem;">
+          <i class="fas fa-search"></i> Search Portals
+        </h2>
         <div class="search-box-large">
           <input type="text" placeholder="Galaxy, platform, mode, or keyword...">
           <button><i class="fas fa-search"></i> Search</button>
@@ -953,28 +1303,99 @@
           <span>Isdoraijung</span>
         </div>
       </div>
+
+      <h3 class="section-title"><i class="fas fa-fire"></i> Popular Searches</h3>
+      <div class="card-grid">
+        <div class="address-card">
+          <span class="card-glyph">0A3F:0078:0E2D:01A2</span>
+          <div class="card-title">Eissentam · Lush</div>
+          <div class="card-meta"><span><i class="fas fa-desktop"></i> PC</span><span><i class="fas fa-gamepad"></i> Normal</span></div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 342</span><span>2d ago</span></div>
+        </div>
+        <div class="address-card">
+          <span class="card-glyph">0F7D:0071:0D8A:021F</span>
+          <div class="card-title">Calypso · Exotic</div>
+          <div class="card-meta"><span><i class="fas fa-playstation"></i> PS5</span><span><i class="fas fa-gamepad"></i> Creative</span></div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 921</span><span>5d ago</span></div>
+        </div>
+        <div class="address-card">
+          <span class="card-glyph">1A2B:00C3:0D4E:0F5A</span>
+          <div class="card-title">Euclid · Tropical</div>
+          <div class="card-meta"><span><i class="fas fa-xbox"></i> Xbox</span><span><i class="fas fa-gamepad"></i> Normal</span></div>
+          <div class="card-footer"><span><i class="fas fa-eye"></i> 1.2k</span><span>1w ago</span></div>
+        </div>
+      </div>
     </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer class="site-footer">
+      <div>
+        <a href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#address">Addresses</a>
+        <a href="#search">Search</a>
+        <a href="#">Gamepedia Wiki</a>
+        <a href="#">Patreon</a>
+        <a href="#">Merch</a>
+      </div>
+      <div>© 2025 The Portal Repository · Built with ❤ by the community</div>
+    </footer>
 
   </div>
 
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" title="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
   <script>
+    // Tab navigation
     const tabs = document.querySelectorAll('.tab-btn');
     const sections = document.querySelectorAll('.page-section');
 
     tabs.forEach(function (btn) {
       btn.addEventListener('click', function () {
-        tabs.forEach(function (b) {
-          b.classList.remove('active');
-        });
-        sections.forEach(function (s) {
-          s.classList.remove('active');
-        });
+        tabs.forEach(function (b) { b.classList.remove('active'); });
+        sections.forEach(function (s) { s.classList.remove('active'); });
         btn.classList.add('active');
         const page = btn.getAttribute('data-page');
         const target = document.getElementById(page);
-        if (target) {
-          target.classList.add('active');
+        if (target) target.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    // Back-to-top visibility
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', function () {
+      if (window.scrollY > 400) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Filter button toggle
+    document.querySelectorAll('.filter-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const group = btn.closest('.filter-group');
+        if (group) {
+          group.querySelectorAll('.filter-btn').forEach(function (b) {
+            b.classList.remove('active');
+          });
         }
+        btn.classList.add('active');
+      });
+    });
+
+    // Search filter chips — fill input on click
+    const mainSearch = document.querySelector('.search-box-large input');
+    document.querySelectorAll('.search-filters span').forEach(function (chip) {
+      chip.addEventListener('click', function () {
+        if (mainSearch) mainSearch.value = chip.textContent.trim();
       });
     });
   </script>
